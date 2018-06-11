@@ -1,0 +1,65 @@
+{% extends "index.html" %} {% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% if object_list %} {% for album in object_list %}
+        <div class="col-lg-3">
+            <!-- <div class="card">
+                    <a href="{{ album.id }}/">
+                        <img class="card-img-top" src="{{ album.albumImage }}">
+                    </a>
+                    <div class="card-block">
+                        <h4 class="card-title">{{ album.albumTitle }} - {{ album.artist }}</h4>
+                        <p class="card-text">{{ album.genre }}</p>
+                    </div>
+                </div> -->
+            <div class="card" style="width: 18rem;">
+                <a href="{{ album.id }}/">
+                    <img class="card-img-top" src="{{ album.albumImage }}" alt="{{ album.albumTitle }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.albumTitle }} - {{ album.artist }}</h5>
+                    <p class="card-text">{{ album.genre }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-4 p-0 m-0">
+                            <a href="{{ album.id }}/" class="btn btn-primary btn-sm">
+                                <i class="fas fa-info-circle"></i>&nbsp; Details
+                            </a>
+                        </div>
+                        <div class="col-sm-4 p-0">
+                            <form action="{% url 'first_app:delete-album' album.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="album_id" value="{{ album.id }}" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-eraser"></i>&nbsp; Delete
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 20px;"></div>
+            <!-- <div class="card-header">
+                    <h2>{{ album.albumTitle }}</h2>
+                </div>
+                <div class="card-body m-0 p-0">
+                    <img class="img-fluid rounded mx-auto d-block" src="{{ album.albumImage }}" alt="{{ album.albumTitle }}">
+                </div>
+                <div class="card-footer">
+                    <h4>{{ album.artist }}</h4>
+                    <h5>{{ album.genre }}</h5>
+                </div> -->
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+</div>
+<!-- 
+    {% for album in object_list %}
+
+        <a href="{{ album.id }}/ ">{{ album.albumTitle }}</a>
+
+    {% endfor %} -->
+{% endblock %}

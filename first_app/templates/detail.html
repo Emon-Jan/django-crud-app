@@ -1,0 +1,66 @@
+{% extends "index.html" %} {% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="card" style="width: 18rem;">
+                <a href="{{ album.id }}/">
+                    {% if album.albumImage %}
+                    <img class="card-img-top" src="{{ album.albumImage }}" alt="{{ album.albumTitle }}"> {% else %}
+                    <h3>No image to display</h3>
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.albumTitle }} - {{ album.artist }}</h5>
+                    <p class="card-text">{{ album.genre }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+            <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link active" href="{% url 'first_app:detail' album.id %}">View All</a>
+                </li>
+                <li role="presentation">
+                    <a class="nav-link" href="#" style="color: wheat">Add New Song</a>
+                </li>
+            </ul>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3>All Songs</h3>
+                    {% if error_message %}
+                    <p>
+                        <strong>{{ error_message }}</strong>
+                    </p>
+                    {% endif %}
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <!-- <th scope="col">Audio File</th> -->
+                                    <th scope="col">File Type</th>
+                                    <!-- <th scope="col">Actions</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for song in album.song_set.all %}
+                                <tr>
+                                    <td>{{ song.songTitle }}</td>
+                                    <td>{{ song.fileType}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
